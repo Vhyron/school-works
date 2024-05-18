@@ -55,7 +55,7 @@ public class ListManager {
                     return;
 
                 default:
-                    System.out.println("\nInvalid option. Please choose 1-4.");
+                    System.out.println("\nInvalid option! Please try again.");
             }
         }
     }
@@ -96,7 +96,7 @@ public class ListManager {
                 System.out.println("\nWords: Empty");
             }
         } else {
-            System.out.println("\nInvalid choice");
+            System.out.println("\nInvalid option! Please try again.");
         }
     }
 }
