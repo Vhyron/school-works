@@ -1,1 +1,1 @@
-# contains files such as activities, quizzes, term exams 
+# contains files such as term activities, quizzes, exams, and projects 
