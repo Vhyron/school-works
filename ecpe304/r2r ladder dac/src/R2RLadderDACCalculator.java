@@ -8,7 +8,6 @@ public class R2RLadderDACCalculator extends JFrame {
     private JTable tablePanel;
     private String[] columns = {"Binary", "Analog"};
 
-    // calculate Vo and show table of binary and analog values
     private void calculateAndUpdate() {
         try {
             double Vref = Double.parseDouble(vrefField.getText());
@@ -24,16 +23,15 @@ public class R2RLadderDACCalculator extends JFrame {
             int numBits = digital.length();
 
             for (int i = 0; i < numBits; i++) {
-                int bit = digital.charAt(i) - '0'; // Start from MSB
-                Vo += bit / Math.pow(2, i + 1); // Calculate weighted sum
+                int bit = digital.charAt(i) - '0';
+                Vo += bit / Math.pow(2, i + 1);
             }
 
             Vo = -Vref * (Rf / R) * Vo;
-            Vo = Math.round(Vo * 100.0) / 100.0; // round to 2 decimal places
+            Vo = Math.round(Vo * 100.0) / 100.0;
 
             voLabel.setText(String.format("%.2f V", Vo));
 
-            // Update the table
             int maxIndex = (int) Math.pow(2, numBits) - 1;
             Object[][] data = new Object[maxIndex + 1][2];
 
@@ -42,7 +40,7 @@ public class R2RLadderDACCalculator extends JFrame {
                 double analogOutput = 0.0;
 
                 for (int j = 0; j < numBits; j++) {
-                    int bit = binaryInput.charAt(j) - '0'; // Start from MSB
+                    int bit = binaryInput.charAt(j) - '0';
                     analogOutput += bit / Math.pow(2, j + 1);
                 }
 
@@ -63,7 +61,7 @@ public class R2RLadderDACCalculator extends JFrame {
         }
     }
 
-    private void addComponent(Component component, int x, int y, int w, int h) {
+    private void add(Component component, int x, int y, int w, int h) {
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = x;
         c.gridy = y;
@@ -78,21 +76,21 @@ public class R2RLadderDACCalculator extends JFrame {
     public R2RLadderDACCalculator() {
         setLayout(new GridBagLayout());
 
-        addComponent(new JLabel("Vref (V):"), 0, 0, 1, 1);
-        addComponent(vrefField = new JTextField(10), 1, 0, 1, 1);
-        addComponent(new JLabel("RΩ:"), 0, 1, 1, 1);
-        addComponent(rField = new JTextField(10), 1, 1, 1, 1);
-        addComponent(new JLabel("RfΩ:"), 0, 2, 1, 1);
-        addComponent(rfField = new JTextField(10), 1, 2, 1, 1);
-        addComponent(new JLabel("Digital Input:"), 0, 3, 1, 1);
-        addComponent(digitalField = new JTextField(10), 1, 3, 1, 1);
-        addComponent(calculateButton = new JButton("Calculate"), 0, 4, 2, 1);
+        add(new JLabel("Vref (V):"), 0, 0, 1, 1);
+        add(vrefField = new JTextField(10), 1, 0, 1, 1);
+        add(new JLabel("RΩ:"), 0, 1, 1, 1);
+        add(rField = new JTextField(10), 1, 1, 1, 1);
+        add(new JLabel("RfΩ:"), 0, 2, 1, 1);
+        add(rfField = new JTextField(10), 1, 2, 1, 1);
+        add(new JLabel("Digital Input:"), 0, 3, 1, 1);
+        add(digitalField = new JTextField(10), 1, 3, 1, 1);
+        add(calculateButton = new JButton("Calculate"), 0, 4, 2, 1);
         calculateButton.addActionListener(e -> calculateAndUpdate());
 
-        addComponent(new JLabel("Output Voltage (Vo):"), 0, 5, 1, 1);
-        addComponent(voLabel = new JLabel(), 1, 5, 1, 1);
+        add(new JLabel("Output Voltage (Vo):"), 0, 5, 1, 1);
+        add(voLabel = new JLabel(), 1, 5, 1, 1);
 
-        addComponent(new JScrollPane(tablePanel = new JTable(new Object[0][0], columns)), 2, 0, 8, 7);
+        add(new JScrollPane(tablePanel = new JTable(new Object[0][0], columns)), 2, 0, 8, 7);
         tablePanel.setPreferredSize(new Dimension(400, 400));
 
         setTitle("R/2R Ladder DAC Calculator");
